@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# React 项目
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 1. 项目的准备工作
 
-## Available Scripts
+### 1.1 redux
 
-In the project directory, you can run:
+1. 下载包 yarn add redux redux-thunk react-redux redux-devtools-extension
 
-### `yarn start`
+2. 定义 4 个模块（主要实现了 store 、reducers）
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3. 在 index.js 模块使用 Provider
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 1.2 react-router-dom
 
-### `yarn test`
+1. 下载包 yarn add react-router-dom
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. 配置：在 App.jsx 配置 BrowserRouter
 
-### `yarn build`
+3. 定义 routes 路由配置文件
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1.3 axios
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. 下载包 yarn add axios
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. 配置拦截器
 
-### `yarn eject`
+3. 定义 api 文件夹
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 1.4 antd-mobile
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. 下载包 yarn add antd-mobile
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. 在 index.html 文件配置防止点击穿透 fastclick
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. 在 index.js 中引入了 antd-mobile 全局样式
 
-## Learn More
+### 1.5 viewport 适配
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. 下载包 yarn add @craco/craco postcss-px-to-viewport --dev
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. 修改 package.json 的 scripts 指令，将前三个 react-scripts 改成 craco
 
-### Code Splitting
+3. 定义配置文件（修改 webpack 配置）craco.config.js，里面设置适配的插件等功能
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. 在配置文件配置路径别名，同时通过 jsconfig.json 文件给路径别名进行代码提示

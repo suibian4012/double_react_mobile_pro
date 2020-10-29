@@ -1,0 +1,16 @@
+.left {
+  color: #000;
+}
+.ipt_prefix {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.ipt_container {
+  margin-top: 30px;
+}
+.btn {
+  border-radius: 30px;
+  width: 90%;
+  margin: 30px auto 0;
+}
