@@ -14,3 +14,13 @@
   width: 90%;
   margin: 30px auto 0;
 }
+.policy-text {
+  color: #000;
+}
+.policy-strong-text {
+  text-decoration: underline;
+}
+.policy-content {
+  display: block;
+  text-align: left;
+}

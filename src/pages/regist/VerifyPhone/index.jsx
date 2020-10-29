@@ -1,21 +1,36 @@
 import React, { Component } from "react";
-import { NavBar, Icon, InputItem, WingBlank, Button } from "antd-mobile";
+import { NavBar, Icon, InputItem, WingBlank, Modal } from "antd-mobile";
 import { createForm } from "rc-form";
 import { reqVerifyPhone } from "../../../api/regist";
-import { reqVerifyCode } from "../../../api/common";
 import "./index.css";
+import VerifyButton from "@components/VerifyButton";
 class VerifyPhone extends Component {
   state = {
     disabled: true,
   };
   componentDidMount() {
-    window.verifyCallback = async (res) => {
-      if (res.ret === 0) {
-        //校验成功,调用接口，服务端验证
-        await reqVerifyCode(res.randstr, res.ticket);
-        await this.verifyPhone();
-      }
-    };
+    // Modal.alert(
+    //   "注册协议及隐私政策",
+    //   <span className="policy-text">
+    //     在您注册成为硅谷用户的过程中，您需要完成我们的注册流程并通过点击同意的形式在线签署以下协议，
+    //     <strong className="policy-strong-text">
+    //       请您务必仔细阅读、充分理解协议中的条款内容后再点击同意（尤其是以粗体并下划线标识的条款，因为这些条款可能会明确您应履行的义务或对您的权利有所限制）
+    //     </strong>
+    //     ：<span className="policy-content">《硅谷用户注册协议》</span>
+    //     <span className="policy-content">《硅谷隐私政策》</span>
+    //   </span>,
+    //   [
+    //     {
+    //       text: "不同意",
+    //       onPress: () => console.log("cancel"),
+    //     },
+    //     {
+    //       text: "同意",
+    //       onPress: () => console.log("ok"),
+    //       style: { backgroundColor: "red", color: "#fff" },
+    //     },
+    //   ]
+    // );
   }
   //验证手机号是否通过正则，来控制下一步按钮的禁用状态
   validator = (rule, value, callback) => {
@@ -68,24 +83,12 @@ class VerifyPhone extends Component {
               </div>
             </InputItem>
           </div>
-          <Button
-            type="warning"
-            className="btn"
-            disabled
-            style={{ display: disabled ? "block" : "none" }}
-          >
-            下一步
-          </Button>
-          <Button
-            id="TencentCaptcha"
-            data-appid="2074282032"
-            data-cbfn="verifyCallback"
-            type="warning"
-            className="btn"
-            style={{ display: !disabled ? "block" : "none" }}
-          >
-            验证
-          </Button>
+
+          <VerifyButton
+            disabled={disabled}
+            buttonText={"下一步"}
+            callback={this.verifyPhone}
+          />
         </WingBlank>
       </div>
     );

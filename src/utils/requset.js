@@ -36,6 +36,7 @@ request.interceptors.response.use(
         message = "网络延迟，请打开4/5G网络或WIFI试试";
       }
     }
+    return Promise.reject(message);
   }
 );
 
