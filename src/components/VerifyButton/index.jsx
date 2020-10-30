@@ -32,7 +32,7 @@ export default class VerifyButton extends Component {
         </Button>
         <Button
           id="TencentCaptcha"
-          data-appid="2074282032"
+          data-appid="2030765311"
           data-cbfn="verifyCallback"
           type="warning"
           className="btn"

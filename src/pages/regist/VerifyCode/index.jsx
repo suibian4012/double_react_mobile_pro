@@ -14,10 +14,11 @@ import { createForm } from "rc-form";
 import "./index.css";
 import msg from "./msg.png";
 const TOTAL_TIME = 5;
-export default class VerifyCode extends Component {
+class VerifyCode extends Component {
   state = {
     time: TOTAL_TIME, //倒计时总时间
     switchBtn: true, //切换按钮，倒计时或者发送验证码，true为倒计时
+    isDisabled: true, //切换下一步按钮的状态
   };
   //倒计时
   countdown = () => {
@@ -54,12 +55,29 @@ export default class VerifyCode extends Component {
           //切换按钮到倒计时
           this.setState({
             switchBtn: true,
+            time: TOTAL_TIME,
           });
           //倒计时
           this.countdown();
         },
       },
     ]);
+  };
+  //验证输入的验证码是否符合正则、
+  validator = (rule, value, callback) => {
+    const reg = /^[0-9]{6}$/;
+    let isDisabled = true;
+    if (reg.test(value)) {
+      isDisabled = false;
+    }
+    this.setState({
+      isDisabled,
+    });
+    callback();
+  };
+  //点击下一步跳转到密码界面
+  goVerifyPassword = () => {
+    this.props.history.push("/regist/verifypassword");
   };
   componentDidMount() {
     this.countdown();
@@ -68,9 +86,10 @@ export default class VerifyCode extends Component {
     clearInterval(this.timer);
   }
   render() {
-    const { time, switchBtn } = this.state;
+    const { time, switchBtn, isDisabled } = this.state;
     const btnClass = switchBtn ? "sendcode-btn" : "";
     const btnText = switchBtn ? `重新发送${time}` : "获取验证码";
+    const { getFieldProps } = this.props.form;
     return (
       <div className="code">
         <NavBar
@@ -86,13 +105,24 @@ export default class VerifyCode extends Component {
             我们将以短信或电话的形式将验证码发送给您，请注意接听0575/025/0592/010等开头的电话
           </p>
           <div className="code-input-container">
-            <InputItem clear placeholder="请输入手机验证码" />
+            <InputItem
+              clear
+              placeholder="请输入手机验证码"
+              {...getFieldProps("code", {
+                rules: [{ validator: this.validator }],
+              })}
+            />
             <button className={btnClass} disabled onTouchEnd={this.sendMsg}>
               {btnText}
             </button>
           </div>
           <WingBlank size="lg">
-            <Button type="warning" disabled className="warning-btn">
+            <Button
+              type="warning"
+              disabled={isDisabled}
+              className="warning-btn"
+              onClick={this.goVerifyPassword}
+            >
               下一步
             </Button>
           </WingBlank>
@@ -107,3 +137,4 @@ export default class VerifyCode extends Component {
     );
   }
 }
+export default createForm()(VerifyCode);

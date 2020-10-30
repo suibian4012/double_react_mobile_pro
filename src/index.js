@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import "antd-mobile/dist/antd-mobile.css";
 import "./asset/css/common.css";
+import "./asset/css/iconfont.css";
 ReactDOM.render(
   <Provider store={store}>
     <App />

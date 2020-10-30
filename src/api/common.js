@@ -10,3 +10,9 @@ export const reqVerifyCode = (randStr, ticket) => {
     },
   });
 };
+export const reqCountryData = () => {
+  return request({
+    method: "GET",
+    url: `${url_prefix}/countryData`,
+  });
+};

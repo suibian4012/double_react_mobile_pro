@@ -1,0 +1,21 @@
+.country-picker-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+.country-picker-dataContainer {
+  padding-top: 45px;
+}
+.country-picker-sideBar {
+  position: fixed;
+  top: 90px;
+  right: 10px;
+  list-style: none;
+  z-index: 10;
+  text-align: center;
+}
+.country-picker-sideBar li {
+  width: 100%;
+  color: skyblue;
+}

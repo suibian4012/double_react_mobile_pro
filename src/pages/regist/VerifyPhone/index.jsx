@@ -79,15 +79,19 @@ class VerifyPhone extends Component {
       },
     ]);
   };
+  toCountryData = () => {
+    this.props.history.push("/common/countryData", "/regist/verifyPhone");
+  };
   render() {
     const { getFieldProps } = this.props.form;
     const { disabled } = this.state;
+    const value = this.props.location.state || "+86";
     return (
       <div>
         <NavBar
           mode="light"
           icon={<Icon type="left" className="left" />}
-          onLeftClick={() => console.log("onLeftClick")}
+          onLeftClick={() => this.props.history.goBack()}
         >
           硅谷注册
         </NavBar>
@@ -100,8 +104,8 @@ class VerifyPhone extends Component {
                 rules: [{ validator: this.validator }],
               })}
             >
-              <div className="ipt_prefix">
-                <span>+86</span>
+              <div className="ipt_prefix" onTouchEnd={this.toCountryData}>
+                <span>{value}</span>
                 <Icon type="down" />
               </div>
             </InputItem>

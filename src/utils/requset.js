@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Toast } from "antd-mobile";
 const request = axios.create({
   baseURL: "/",
 });
@@ -17,6 +18,7 @@ request.interceptors.response.use(
     if (response.data.code === 20000) {
       return response.data.data;
     } else {
+      Toast.fail(response.data.message, 3);
       return Promise.reject(response.data.message);
     }
   },
@@ -36,6 +38,7 @@ request.interceptors.response.use(
         message = "网络延迟，请打开4/5G网络或WIFI试试";
       }
     }
+    Toast.fail(message, 3);
     return Promise.reject(message);
   }
 );
