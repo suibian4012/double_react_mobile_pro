@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavBar, Icon, InputItem, WingBlank, Modal } from "antd-mobile";
 import { createForm } from "rc-form";
 import { reqVerifyPhone } from "../../../api/regist";
+import { reqSendCode } from "@api/login";
 import "./index.css";
 import VerifyButton from "@components/VerifyButton";
 class VerifyPhone extends Component {
@@ -49,12 +50,34 @@ class VerifyPhone extends Component {
   verifyPhone = async () => {
     try {
       //收集输入的手机号
-      const phone = this.props.form.getFieldValue;
+      const phone = this.props.form.getFieldValue("phone");
+      //验证手机号是否注册过
       await reqVerifyPhone(phone);
-      console.log("success");
+      //请求成功，手机号没有注册过---发送短信验证码
+      this.sendmsgVerifyCode();
     } catch (e) {
       console.log(e);
     }
+  };
+  //短信验证码
+  sendmsgVerifyCode = () => {
+    const phone = this.props.form.getFieldValue("phone");
+    //弹框
+    Modal.alert("", `我们将发送短信至：${phone}`, [
+      {
+        text: "取消",
+      },
+      {
+        text: "同意",
+        style: { backgroundColor: "red", color: "#fff" },
+        onPress: async () => {
+          //点击确定发送，调用接口
+          await reqSendCode(phone);
+          //跳转界面,并传参，后续验证码验证需要参数
+          this.props.history.push("/regist/verifycode", phone);
+        },
+      },
+    ]);
   };
   render() {
     const { getFieldProps } = this.props.form;
